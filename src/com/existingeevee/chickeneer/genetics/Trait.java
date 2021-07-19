@@ -18,7 +18,7 @@ public class Trait {
 	public Trait(String identifier, Allele alleleA, Allele alleleB, Random rand) {
 		this.identifier = identifier;
 		this.allelePair = new DoubleValue<Allele,Allele>(alleleA, alleleB);
-		this.isAlleleADominant = (alleleA.isDomanent() == alleleB.isDomanent() ? rand.nextBoolean() : Utils.compareBoolean(alleleA.isDomanent(), alleleB.isDomanent()));
+		this.isAlleleADominant = (alleleA.isDominent() == alleleB.isDominent() ? rand.nextBoolean() : Utils.compareBoolean(alleleA.isDominent(), alleleB.isDominent()));
 	}
 
 	public Trait(String identifier, Allele alleleA, Allele alleleB, Random rand, boolean isAlleleADominant) {

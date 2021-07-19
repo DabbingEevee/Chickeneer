@@ -171,25 +171,25 @@ public class Utils {
 		}
 		float blendChance = (allele1.getBlendChance() + allele2.getBlendChance()) / 2;
 		if (rand.nextFloat() <= blendChance) {
-			if (allele1.isDomanent() == allele2.isDomanent()) {
+			if (allele1.isDominent() == allele2.isDominent()) {
 				int value = Math.round(allele1.getValue() + allele2.getValue()) / 2;
 				return new Trait(id, new Allele(false, value, true, blendChance / 2), rand.nextBoolean() ? allele1 : allele2, rand, true);
 			}
-			if (Utils.compareBoolean(allele1.isDomanent(), allele2.isDomanent())) {
+			if (Utils.compareBoolean(allele1.isDominent(), allele2.isDominent())) {
 				if (allele1.getValue() > allele2.getValue()) {
-					int value = Math.round(allele1.getValue() + allele2.getValue()) / (4/3);
-					return new Trait(id, new Allele(false, value, true, blendChance / 2), rand.nextBoolean() ? allele1 : allele2, rand, true);
+					int value = (Math.round(allele1.getValue() + allele2.getValue()) / 2) + (allele1.getValue() - allele2.getValue()) / 4;
+					return new Trait(id, new Allele(false, value, true, blendChance / 2), allele1, rand, true);
 				} else {
-					int value = Math.round(allele1.getValue() + allele2.getValue()) / 4;
-					return new Trait(id, new Allele(false, value, true, blendChance / 2), rand.nextBoolean() ? allele1 : allele2, rand, true);
+					int value = (Math.round(allele1.getValue() + allele2.getValue()) / 2) - (allele1.getValue() - allele2.getValue()) / 4;
+					return new Trait(id, new Allele(false, value, true, blendChance / 2), allele1, rand, true);
 				}
 			} else {
 				if (allele1.getValue() > allele2.getValue()) {
-					int value = Math.round(allele1.getValue() + allele2.getValue()) / 4;
-					return new Trait(id, new Allele(false, value, true, blendChance / 2), rand.nextBoolean() ? allele1 : allele2, rand, true);
+					int value = (Math.round(allele1.getValue() + allele2.getValue()) / 2) - (allele1.getValue() - allele2.getValue()) / 4;
+					return new Trait(id, new Allele(false, value, true, blendChance / 2), allele2, rand, true);
 				} else {
-					int value = Math.round(allele1.getValue() + allele2.getValue()) / (4/3);
-					return new Trait(id, new Allele(false, value, true, blendChance / 2), rand.nextBoolean() ? allele1 : allele2, rand, true);
+					int value = (Math.round(allele1.getValue() + allele2.getValue()) / 2) + (allele1.getValue() - allele2.getValue()) / 4;
+					return new Trait(id, new Allele(false, value, true, blendChance / 2), allele2, rand, true);
 				}
 			}
 		}

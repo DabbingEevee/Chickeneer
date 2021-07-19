@@ -72,7 +72,7 @@ public class DNA {
 					traits.add(Utils.calculateBlend(trait.getKey(), a1, b1, rand));
 					continue;
 				}
-				traits.add(new Trait(trait.getKey(), a1, b1));
+				traits.add(new Trait(trait.getKey(), a2, b1));
 			} else if (rng == 3) {
 				if (a1.isBlendable() && a2.isBlendable()) {
 					traits.add(Utils.calculateBlend(trait.getKey(), a1, b2, rand));
@@ -105,8 +105,8 @@ public class DNA {
 		String dna = "[";
 		for (Entry<String, Trait> t : traitMap.entrySet()) {
 			int allele = 0;
-			allele += (t.getValue().getAlleleA().isDomanent() ? 1 : 0);
-			allele += (t.getValue().getAlleleB().isDomanent() ? 1 : 0);
+			allele += (t.getValue().getAlleleA().isDominent() ? 1 : 0);
+			allele += (t.getValue().getAlleleB().isDominent() ? 1 : 0);
 			String alleleStr = "aa";
 			if (allele == 1)
 				alleleStr = "Aa";
@@ -115,7 +115,7 @@ public class DNA {
 			dna += ("(" + t.getKey() + " - " + alleleStr + " - " + t.getValue().getDominantAllele().getValue() + "), ");
 		}
 
-		return dna.substring(0, dna.length() -1) + "]";
+		return dna.substring(0, dna.length() -2) + "]";
 	}
 
 }

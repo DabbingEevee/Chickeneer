@@ -29,7 +29,7 @@ public class Allele {
 		this.value = val;
 	}
 
-	public boolean isDomanent() {
+	public boolean isDominent() {
 		return dominant;
 	}
 
