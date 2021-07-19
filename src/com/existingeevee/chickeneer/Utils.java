@@ -173,7 +173,7 @@ public class Utils {
 		if (rand.nextFloat() <= blendChance) {
 			if (allele1.isDominent() == allele2.isDominent()) {
 				int value = Math.round(allele1.getValue() + allele2.getValue()) / 2;
-				return new Trait(id, new Allele(false, value, true, blendChance / 2), rand.nextBoolean() ? allele1 : allele2, rand, true);
+				return new Trait(id, new Allele(allele1.isDominent() && allele2.isDominent(), value, true, blendChance / 2), rand.nextBoolean() ? allele1 : allele2, rand, true);
 			}
 			if (Utils.compareBoolean(allele1.isDominent(), allele2.isDominent())) {
 				if (allele1.getValue() > allele2.getValue()) {
