@@ -8,25 +8,25 @@ import com.existingeevee.chickeneer.Utils;
 public class Trait {
 
 	private String identifier;
-	private DoubleValue<Allele,Allele> allelePair;
+	private DoubleValue<Allele<?>,Allele<?>> allelePair;
 	private boolean isAlleleADominant;
 
-	public Trait(String identifier, Allele alleleA, Allele alleleB) {
+	public Trait(String identifier, Allele<?> alleleA, Allele<?> alleleB) {
 		this(identifier, alleleA, alleleB, new Random());
 	}
 
-	public Trait(String identifier, Allele alleleA, Allele alleleB, Random rand) {
+	public Trait(String identifier, Allele<?> alleleA, Allele<?> alleleB, Random rand) {
 		this.identifier = identifier;
-		this.allelePair = new DoubleValue<Allele,Allele>(alleleA, alleleB);
+		this.allelePair = new DoubleValue<Allele<?>,Allele<?>>(alleleA, alleleB);
 		this.isAlleleADominant = (alleleA.isDominent() == alleleB.isDominent() ? rand.nextBoolean() : Utils.compareBoolean(alleleA.isDominent(), alleleB.isDominent()));
 	}
 
-	public Trait(String identifier, Allele alleleA, Allele alleleB, Random rand, boolean isAlleleADominant) {
+	public Trait(String identifier, Allele<?> alleleA, Allele<?> alleleB, Random rand, boolean isAlleleADominant) {
 		this.identifier = identifier;
-		this.allelePair = new DoubleValue<Allele,Allele>(alleleA, alleleB);
+		this.allelePair = new DoubleValue<Allele<?>,Allele<?>>(alleleA, alleleB);
 		this.isAlleleADominant = isAlleleADominant;
 	}
-	public final Allele getDominantAllele() {
+	public final Allele<?> getDominantAllele() {
 		return (this.isAlleleADominant ? allelePair.getA() : allelePair.getB());
 	}
 
@@ -34,15 +34,15 @@ public class Trait {
 		return identifier;
 	}
 
-	public final DoubleValue<Allele,Allele> getAllelePair() {
+	public final DoubleValue<Allele<?>,Allele<?>> getAllelePair() {
 		return allelePair;
 	}
 
-	public final Allele getAlleleA() {
+	public final Allele<?> getAlleleA() {
 		return allelePair.getA();
 	}
 
-	public final Allele getAlleleB() {
+	public final Allele<?> getAlleleB() {
 		return allelePair.getB();
 	}
 

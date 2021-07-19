@@ -165,37 +165,6 @@ public class Utils {
 	    return Math.max(min, Math.min(max, val));
 	}
 
-	public static Trait calculateBlend(String id, Allele allele1, Allele allele2, Random rand) {
-		if (allele1.getValue() == allele2.getValue()) {
-			return new Trait(id, allele1, allele2);
-		}
-		float blendChance = (allele1.getBlendChance() + allele2.getBlendChance()) / 2;
-		if (rand.nextFloat() <= blendChance) {
-			if (allele1.isDominent() == allele2.isDominent()) {
-				int value = Math.round(allele1.getValue() + allele2.getValue()) / 2;
-				return new Trait(id, new Allele(allele1.isDominent() && allele2.isDominent(), value, true, blendChance / 2), rand.nextBoolean() ? allele1 : allele2, rand, true);
-			}
-			if (Utils.compareBoolean(allele1.isDominent(), allele2.isDominent())) {
-				if (allele1.getValue() > allele2.getValue()) {
-					int value = (Math.round(allele1.getValue() + allele2.getValue()) / 2) + (allele1.getValue() - allele2.getValue()) / 4;
-					return new Trait(id, new Allele(false, value, true, blendChance / 2), allele1, rand, true);
-				} else {
-					int value = (Math.round(allele1.getValue() + allele2.getValue()) / 2) - (allele1.getValue() - allele2.getValue()) / 4;
-					return new Trait(id, new Allele(false, value, true, blendChance / 2), allele1, rand, true);
-				}
-			} else {
-				if (allele1.getValue() > allele2.getValue()) {
-					int value = (Math.round(allele1.getValue() + allele2.getValue()) / 2) - (allele1.getValue() - allele2.getValue()) / 4;
-					return new Trait(id, new Allele(false, value, true, blendChance / 2), allele2, rand, true);
-				} else {
-					int value = (Math.round(allele1.getValue() + allele2.getValue()) / 2) + (allele1.getValue() - allele2.getValue()) / 4;
-					return new Trait(id, new Allele(false, value, true, blendChance / 2), allele2, rand, true);
-				}
-			}
-		}
-		return new Trait(id, allele1, allele2);
-	}
-
 	public static String encodeBase64(String str) {
 		return Base64.getEncoder().encodeToString(str.getBytes());
 	}

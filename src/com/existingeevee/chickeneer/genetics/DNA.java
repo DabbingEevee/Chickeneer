@@ -8,8 +8,6 @@ import java.util.Map.Entry;
 import java.util.Random;
 import java.util.UUID;
 
-import com.existingeevee.chickeneer.Utils;
-
 public class DNA {
 
 	private UUID uuid = UUID.randomUUID();
@@ -63,25 +61,25 @@ public class DNA {
 
 			if (rng == 1) {
 				if (a1.isBlendable() && a2.isBlendable()) {
-					traits.add(Utils.calculateBlend(trait.getKey(), a1, a2, rand));
+					traits.add(a1.blend(trait.getKey(), a2, rand));
 					continue;
 				}
 				traits.add(new Trait(trait.getKey(), a1, a2));
 			} else if (rng == 2) {
-				if (a1.isBlendable() && b1.isBlendable()) {
-					traits.add(Utils.calculateBlend(trait.getKey(), a1, b1, rand));
+				if (a2.isBlendable() && b1.isBlendable()) {
+					traits.add(a2.blend(trait.getKey(), b1, rand));
 					continue;
 				}
 				traits.add(new Trait(trait.getKey(), a2, b1));
 			} else if (rng == 3) {
-				if (a1.isBlendable() && a2.isBlendable()) {
-					traits.add(Utils.calculateBlend(trait.getKey(), a1, b2, rand));
+				if (a1.isBlendable() && b2.isBlendable()) {
+					traits.add(a1.blend(trait.getKey(), b2, rand));
 					continue;
 				}
 				traits.add(new Trait(trait.getKey(), a1, b2));
 			} else if (rng == 4) {
 				if (a1.isBlendable() && a2.isBlendable()) {
-					traits.add(Utils.calculateBlend(trait.getKey(), b1, b2, rand));
+					traits.add(b1.blend(trait.getKey(), b2, rand));
 					continue;
 				}
 				traits.add(new Trait(trait.getKey(), b1, b2));
