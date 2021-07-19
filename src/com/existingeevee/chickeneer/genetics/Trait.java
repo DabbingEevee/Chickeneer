@@ -1,27 +1,49 @@
 package com.existingeevee.chickeneer.genetics;
 
-public abstract class Trait<V> {
+import java.util.Random;
+
+import com.existingeevee.chickeneer.DoubleValue;
+import com.existingeevee.chickeneer.Utils;
+
+public class Trait {
 
 	private String identifier;
-	private int dominance;
-	private V value;
-	
-	public Trait(String identifier, int dominance, V value) {
+	private DoubleValue<Allele,Allele> allelePair;
+	private boolean isAlleleADominant;
+
+	public Trait(String identifier, Allele alleleA, Allele alleleB) {
+		this(identifier, alleleA, alleleB, new Random());
+	}
+
+	public Trait(String identifier, Allele alleleA, Allele alleleB, Random rand) {
 		this.identifier = identifier;
-		this.dominance = dominance; 
-		this.value = value;
+		this.allelePair = new DoubleValue<Allele,Allele>(alleleA, alleleB);
+		this.isAlleleADominant = (alleleA.isDomanent() == alleleB.isDomanent() ? rand.nextBoolean() : Utils.compareBoolean(alleleA.isDomanent(), alleleB.isDomanent()));
 	}
 
-	public V getValue() {
-		return value;
+	public Trait(String identifier, Allele alleleA, Allele alleleB, Random rand, boolean isAlleleADominant) {
+		this.identifier = identifier;
+		this.allelePair = new DoubleValue<Allele,Allele>(alleleA, alleleB);
+		this.isAlleleADominant = isAlleleADominant;
+	}
+	public final Allele getDominantAllele() {
+		return (this.isAlleleADominant ? allelePair.getA() : allelePair.getB());
 	}
 
-	public int getDominance() {
-		return dominance;
-	}
-
-	public String getIdentifier() {
+	public final String getIdentifier() {
 		return identifier;
+	}
+
+	public final DoubleValue<Allele,Allele> getAllelePair() {
+		return allelePair;
+	}
+
+	public final Allele getAlleleA() {
+		return allelePair.getA();
+	}
+
+	public final Allele getAlleleB() {
+		return allelePair.getB();
 	}
 
 }
