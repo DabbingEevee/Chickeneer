@@ -31,6 +31,7 @@ public class DNA {
 	}
 
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public DNA(DNA dnaParent1, DNA dnaParent2, Random rand) {
 		List<Trait> traits = new ArrayList<Trait>();
 
@@ -110,7 +111,7 @@ public class DNA {
 				alleleStr = "Aa";
 			if (allele == 2)
 				alleleStr = "AA";
-			dna += ("(" + t.getKey() + " - " + alleleStr + " - " + t.getValue().getDominantAllele().getValue() + "), ");
+			dna += ("(" + t.getKey() + " - " + alleleStr + " - " + t.getValue().getDominantAllele().getValue() + "/" + t.getValue().getResessiveAllele().getValue() + "), ");
 		}
 
 		return dna.substring(0, dna.length() -2) + "]";

@@ -1,4 +1,4 @@
-package com.existingeevee.chickeneer;
+package com.existingeevee.chickeneer.data;
 
 public class DoubleValue<A,B> {
 

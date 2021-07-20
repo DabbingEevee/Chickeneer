@@ -39,9 +39,7 @@ public abstract class Allele<T> {
 		return blending;
 	}
 
-	public abstract Allele<T> getBlendedAlleleEqual(String id, Allele<T> allele1, Allele<T> allele2, Random rand);
-	public abstract Allele<T> getBlendedAlleleLessThan(String id, Allele<T> allele1, Allele<T> allele2, Random rand);
-	public abstract Allele<T> getBlendedAlleleMoreathan(String id, Allele<T> allele1, Allele<T> allele2, Random rand);
+	public abstract Allele<T> getBlendedAllele(String id, Allele<T> allele1, Allele<T> allele2, Random rand);
 
 	public final Trait blend(String id, Allele<T> allele2, Random rand) {
 		Allele<T> allele1 = this;
@@ -50,14 +48,7 @@ public abstract class Allele<T> {
 		}
 		float blendChance = (allele1.getBlendChance() + allele2.getBlendChance()) / 2;
 		if (rand.nextFloat() <= blendChance) {
-			if (allele1.isDominent() == allele2.isDominent()) {
-				return new Trait(id, getBlendedAlleleEqual(id, allele1, allele2, rand), rand.nextBoolean() ? allele1 : allele2, rand, true);
-			}
-			if (Utils.compareBoolean(allele1.isDominent(), allele2.isDominent())) {
-				return new Trait(id, getBlendedAlleleMoreathan(id, allele1, allele2, rand), rand.nextBoolean() ? allele1 : allele2, rand, true);
-			} else {
-				return new Trait(id, getBlendedAlleleLessThan(id, allele1, allele2, rand), rand.nextBoolean() ? allele1 : allele2, rand, true);
-			}
+			return new Trait(id, getBlendedAllele(id, allele1, allele2, rand), rand.nextBoolean() ? allele1 : allele2, rand, true);
 		}
 		return new Trait(id, allele1, allele2);
 
