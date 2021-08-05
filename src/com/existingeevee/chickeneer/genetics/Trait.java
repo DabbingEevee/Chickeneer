@@ -2,8 +2,8 @@ package com.existingeevee.chickeneer.genetics;
 
 import java.util.Random;
 
-import com.existingeevee.chickeneer.Utils;
 import com.existingeevee.chickeneer.data.DoubleValue;
+import com.existingeevee.chickeneer.utils.Utils;
 
 public class Trait {
 

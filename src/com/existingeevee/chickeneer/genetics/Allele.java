@@ -1,8 +1,10 @@
 package com.existingeevee.chickeneer.genetics;
 
+import java.util.Map;
 import java.util.Random;
 
-import com.existingeevee.chickeneer.Utils;
+import com.existingeevee.chickeneer.utils.Utils;
+import com.sun.org.apache.xml.internal.serializer.SerializerBase;
 
 public abstract class Allele<T> {
 

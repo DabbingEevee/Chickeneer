@@ -1,6 +1,6 @@
 package com.existingeevee.chickeneer.data;
 
-import com.existingeevee.chickeneer.Utils;
+import com.existingeevee.chickeneer.utils.Utils;
 
 public class Color {
 	private int r;
