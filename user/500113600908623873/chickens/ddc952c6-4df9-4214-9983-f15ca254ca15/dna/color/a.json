@@ -1,0 +1,9 @@
+{
+  "red" : "223",
+  "blendChance" : "0.375",
+  "green" : "223",
+  "blue" : "223",
+  "dominant" : "false",
+  "blend" : "true",
+  "serializer" : "com.existingeevee.chickeneer.genetics.serializers.ColorAlleleSerializer"
+}
