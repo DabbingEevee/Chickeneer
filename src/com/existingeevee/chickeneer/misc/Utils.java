@@ -113,7 +113,6 @@ public class Utils {
 
 	public static String fileread(String str) {
 		String textfile = "";
-
 		try {
 			File myObj = new File(new File(ClassLoader.getSystemClassLoader().getResource(".").getPath())
 					.getAbsolutePath().replace("%20", " ") + "/" + str);
@@ -130,7 +129,25 @@ public class Utils {
 		return textfile;
 
 	}
+	
+	public static String readFileFromPath(String path) {
+		String textfile = "";
+		try {
+			File myObj = new File(path);
+			Scanner myReader = new Scanner(myObj);
+			while (myReader.hasNextLine()) {
+				String data = myReader.nextLine();
+				textfile += (data + "\n");
 
+			}
+			myReader.close();
+		} catch (FileNotFoundException e) {
+			return null;
+		}
+		return textfile;
+
+	}
+	
 	public static File getfile(String str) {
 		return new File(new File(ClassLoader.getSystemClassLoader().getResource(".").getPath())
 					.getAbsolutePath().replace("%20", " ") + "/" + str);
@@ -161,6 +178,11 @@ public class Utils {
 		return readJson(jsonInput);
 	}
 
+	public static Map<String, String> readJsonFileFromPath(String path) {
+		String jsonInput = readFileFromPath(path);
+		return readJson(jsonInput);
+	}
+	
 	public static Map<String, String> readJson(String jsonInput) {
 		ObjectMapper mapper = new ObjectMapper();
 		TypeReference<HashMap<String, String>> typeRef = new TypeReference<HashMap<String, String>>() {};

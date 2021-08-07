@@ -53,7 +53,7 @@ public class Chickeneer {
 									continue;
 								}
 							}
-							dnaList.add(dna);
+							//dnaList.add(dna);
 						}
 					} catch (Throwable er) {
 						er.printStackTrace();
@@ -61,13 +61,13 @@ public class Chickeneer {
 					}
 				}
 		}
-		int rng1 = new Random().nextInt(dnaList.size());
-		int rng2 = rng1;
-		while (rng1 == rng2) {
-			rng2 = new Random().nextInt(dnaList.size());
-		}
-		DNA result = new DNA(dnaList.get(rng1), dnaList.get(rng2));
-		Utils.logParentsToFile(new Chicken(dnaList.get(rng1)), new Chicken(dnaList.get(rng2)), new Chicken(result));
-		System.out.println(result);
+		//int rng1 = new Random().nextInt(dnaList.size());
+		//int rng2 = rng1;
+		//while (rng1 == rng2) {
+			//rng2 = new Random().nextInt(dnaList.size());
+		//}
+		//DNA result = new DNA(dnaList.get(rng1), dnaList.get(rng2));
+		//Utils.logParentsToFile(new Chicken(dnaList.get(rng1)), new Chicken(dnaList.get(rng2)), new Chicken(result));
+		//System.out.println(result);
 	}
 }
