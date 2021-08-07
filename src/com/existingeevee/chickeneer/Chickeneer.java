@@ -7,48 +7,59 @@ import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
+import com.existingeevee.chickeneer.data.Chicken;
 import com.existingeevee.chickeneer.genetics.Allele;
 import com.existingeevee.chickeneer.genetics.DNA;
 import com.existingeevee.chickeneer.genetics.Trait;
-import com.existingeevee.chickeneer.utils.Utils;
+import com.existingeevee.chickeneer.misc.Utils;
+import com.existingeevee.chickeneer.misc.discord.ChickeneerDiscordBot;
 
 public class Chickeneer {
 
-	public static List<DNA> dnaList = new ArrayList<DNA>();
+	public static List<Chicken> chickenList = new ArrayList<Chicken>();
 
 	public static void main(String[] args) {
+		ChickeneerDiscordBot.startDiscordBot();
 
-		File folder = new File(ClassLoader.getSystemClassLoader().getResource(".").getPath() + "dnapool");
-
-		for (File f : folder.listFiles()) {
-			try {
-				UUID.fromString(f.getName());
-				if (!f.isDirectory()) {
-					continue;
-				} else {
-					DNA dna = new DNA(UUID.fromString(f.getName()));
-					for (File t : f.listFiles()) {
-						try {
-							if (!t.isDirectory()) {
-								continue;
-							} else {
-								Allele<?> a = Utils.deserializeAllele(Utils.fileread("dnapool/" + f.getName() + "/" + t.getName() + "/a.json"));
-								Allele<?> b = Utils.deserializeAllele(Utils.fileread("dnapool/" + f.getName() + "/" + t.getName() + "/b.json"));
-								Map<String,String> map = Utils.readJsonFile("dnapool/" + f.getName() + "/" + t.getName() + "/traitdata");
-								Trait tr = new Trait(t.getName(), a, b, new Random(), map.get("dominant").equalsIgnoreCase("a") ? true : false);
-								dna.getTraitMap().put(tr.getIdentifier(), tr);
-							}
-						} catch(Throwable e) {
-							e.printStackTrace();
+		File folder = new File(ClassLoader.getSystemClassLoader().getResource(".").getPath() + "user");
+		for (File e : folder.listFiles()) {
+			if (e.isDirectory())
+				System.out.println(e.getPath() + "/chickens");
+				for (File f : new File(e.getPath() + "/chickens").listFiles()) {
+					try {
+						UUID.fromString(f.getName());
+						if (!f.isDirectory()) {
 							continue;
+						} else {
+							DNA dna = new DNA(UUID.fromString(f.getName()));
+
+							for (File t : new File(f.getPath() + "/dna").listFiles()) {
+								try {
+									if (!t.isDirectory()) {
+										continue;
+									} else {
+										Allele<?> a = Utils.deserializeAllele(Utils.fileread("user/" + e.getName() +
+												"/chickens/" + f.getName() + "/dna/" + t.getName() + "/a.json"));
+										Allele<?> b = Utils.deserializeAllele(Utils.fileread("user/" + e.getName() +
+												"/chickens/" + f.getName() + "/dna/" + t.getName() + "/b.json"));
+										Map<String, String> map = Utils.readJsonFile("user/" + e.getName() +
+												"/chickens/" + f.getName() + "/dna/" + t.getName() + "/traitdata");
+										Trait tr = new Trait(t.getName(), a, b, new Random(),
+												map.get("dominant").equalsIgnoreCase("a") ? true : false);
+										dna.getTraitMap().put(tr.getIdentifier(), tr);
+									}
+								} catch (Throwable er) {
+									er.printStackTrace();
+									continue;
+								}
+							}
+							dnaList.add(dna);
 						}
+					} catch (Throwable er) {
+						er.printStackTrace();
+						continue;
 					}
-					dnaList.add(dna);
 				}
-			} catch(Throwable e) {
-				e.printStackTrace();
-				continue;
-			}
 		}
 		int rng1 = new Random().nextInt(dnaList.size());
 		int rng2 = rng1;
@@ -56,9 +67,7 @@ public class Chickeneer {
 			rng2 = new Random().nextInt(dnaList.size());
 		}
 		DNA result = new DNA(dnaList.get(rng1), dnaList.get(rng2));
-		Utils.saveParentAndDNAToFile(dnaList.get(rng1), dnaList.get(rng2), result);
+		Utils.logParentsToFile(new Chicken(dnaList.get(rng1)), new Chicken(dnaList.get(rng2)), new Chicken(result));
 		System.out.println(result);
 	}
-
-
 }

@@ -101,7 +101,7 @@ public class DNA {
 
 	@Override
 	public String toString() {
-		String dna = "[";
+		String dna = "[" + this.uuid.toString() + " - {";
 		for (Entry<String, Trait> t : traitMap.entrySet()) {
 			int allele = 0;
 			allele += (t.getValue().getAlleleA().isDominent() ? 1 : 0);
@@ -114,7 +114,7 @@ public class DNA {
 			dna += ("(" + t.getKey() + " - " + alleleStr + " - " + t.getValue().getDominantAllele().getValue() + "/" + t.getValue().getResessiveAllele().getValue() + "), ");
 		}
 
-		return dna.substring(0, dna.length() -2) + "]";
+		return (dna.endsWith(", ") ? dna.substring(0, dna.length() -2) : dna) + "}]";
 	}
 
 }

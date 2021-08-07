@@ -4,7 +4,7 @@ import java.util.Random;
 
 import com.existingeevee.chickeneer.data.Color;
 import com.existingeevee.chickeneer.genetics.Allele;
-import com.existingeevee.chickeneer.utils.Utils;
+import com.existingeevee.chickeneer.misc.Utils;
 
 public class ColorAllele extends Allele<Color>{
 

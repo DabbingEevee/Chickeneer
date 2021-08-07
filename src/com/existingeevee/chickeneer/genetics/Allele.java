@@ -3,7 +3,7 @@ package com.existingeevee.chickeneer.genetics;
 import java.util.Map;
 import java.util.Random;
 
-import com.existingeevee.chickeneer.utils.Utils;
+import com.existingeevee.chickeneer.misc.Utils;
 import com.sun.org.apache.xml.internal.serializer.SerializerBase;
 
 public abstract class Allele<T> {

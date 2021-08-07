@@ -6,7 +6,7 @@ import java.util.Map;
 import com.existingeevee.chickeneer.data.Color;
 import com.existingeevee.chickeneer.genetics.AlleleSerializer;
 import com.existingeevee.chickeneer.genetics.allele.ColorAllele;
-import com.existingeevee.chickeneer.utils.Utils;
+import com.existingeevee.chickeneer.misc.Utils;
 
 public class ColorAlleleSerializer extends AlleleSerializer<ColorAllele>{
 
