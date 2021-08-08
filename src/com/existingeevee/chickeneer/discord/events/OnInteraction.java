@@ -11,10 +11,8 @@ public class OnInteraction extends ListenerAdapter {
 			if (event.getUser().getId().equalsIgnoreCase(event.getSelectionMenu().getId().split(":")[2])) {
 				event.reply(event.getSelectedOptions().get(0).getValue()).queue();
 			} else {
-				event.deferReply(false);
 			}
 		} catch (ArrayIndexOutOfBoundsException e) {
-			event.deferReply(false);
 		}
 	}
 }
