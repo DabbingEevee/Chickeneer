@@ -22,11 +22,11 @@ import java.util.Scanner;
 import com.existingeevee.chickeneer.data.Chicken;
 import com.existingeevee.chickeneer.genetics.Allele;
 import com.existingeevee.chickeneer.genetics.AlleleSerializer;
-import com.existingeevee.chickeneer.genetics.DNA;
 import com.existingeevee.chickeneer.genetics.Trait;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 public class Utils {
 
@@ -129,7 +129,7 @@ public class Utils {
 		return textfile;
 
 	}
-	
+
 	public static String readFileFromPath(String path) {
 		String textfile = "";
 		try {
@@ -147,7 +147,7 @@ public class Utils {
 		return textfile;
 
 	}
-	
+
 	public static File getfile(String str) {
 		return new File(new File(ClassLoader.getSystemClassLoader().getResource(".").getPath())
 					.getAbsolutePath().replace("%20", " ") + "/" + str);
@@ -182,7 +182,7 @@ public class Utils {
 		String jsonInput = readFileFromPath(path);
 		return readJson(jsonInput);
 	}
-	
+
 	public static Map<String, String> readJson(String jsonInput) {
 		ObjectMapper mapper = new ObjectMapper();
 		TypeReference<HashMap<String, String>> typeRef = new TypeReference<HashMap<String, String>>() {};

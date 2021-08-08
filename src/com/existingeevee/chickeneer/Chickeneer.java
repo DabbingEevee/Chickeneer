@@ -1,18 +1,10 @@
 package com.existingeevee.chickeneer;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.UUID;
 
 import com.existingeevee.chickeneer.data.Chicken;
-import com.existingeevee.chickeneer.genetics.Allele;
-import com.existingeevee.chickeneer.genetics.DNA;
-import com.existingeevee.chickeneer.genetics.Trait;
-import com.existingeevee.chickeneer.misc.Utils;
-import com.existingeevee.chickeneer.misc.discord.ChickeneerDiscordBot;
+import com.existingeevee.chickeneer.discord.ChickeneerDiscordBot;
 
 public class Chickeneer {
 
@@ -21,7 +13,7 @@ public class Chickeneer {
 	public static void main(String[] args) {
 		ChickeneerDiscordBot.startDiscordBot();
 
-		File folder = new File(ClassLoader.getSystemClassLoader().getResource(".").getPath() + "user");
+		/*File folder = new File(ClassLoader.getSystemClassLoader().getResource(".").getPath() + "user");
 		for (File e : folder.listFiles()) {
 			if (e.isDirectory())
 				System.out.println(e.getPath() + "/chickens");
@@ -68,6 +60,6 @@ public class Chickeneer {
 		//}
 		//DNA result = new DNA(dnaList.get(rng1), dnaList.get(rng2));
 		//Utils.logParentsToFile(new Chicken(dnaList.get(rng1)), new Chicken(dnaList.get(rng2)), new Chicken(result));
-		//System.out.println(result);
+		//System.out.println(result);*/
 	}
 }
