@@ -1,6 +1,7 @@
 package com.existingeevee.chickeneer.discord.events;
 
 import com.existingeevee.chickeneer.discord.Command;
+import com.existingeevee.chickeneer.discord.commands.CommandChickenList;
 import com.existingeevee.chickeneer.discord.commands.CommandHelp;
 import com.existingeevee.chickeneer.discord.commands.CommandTest;
 
@@ -27,6 +28,7 @@ public class OnReady extends ListenerAdapter {
 	public static void registerCommands() {
 		Command.register(new CommandHelp());
 		Command.register(new CommandTest());
+		Command.register(new CommandChickenList());
 	}
 
 }

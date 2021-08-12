@@ -8,7 +8,6 @@ import java.util.Random;
 import java.util.UUID;
 
 import com.existingeevee.chickeneer.discord.ChickeneerDiscordBot;
-import com.existingeevee.chickeneer.genetics.AlleleSerializer;
 import com.existingeevee.chickeneer.genetics.DNA;
 import com.existingeevee.chickeneer.genetics.Trait;
 import com.existingeevee.chickeneer.misc.Utils;
@@ -66,6 +65,10 @@ public class Chicken {
 		}
 	}
 
+	public void setOwnerID(String id) {
+		this.ownerID = id;
+	}
+	
 	public static Chicken fromExistingChickenFolder(File folderFile) {
 		if (folderFile.isDirectory()) {
 			File dnaDir = new File(folderFile.getPath() + "/dna");
@@ -75,12 +78,12 @@ public class Chicken {
 					if (tr.isDirectory()) {
 						if (new File(tr.getPath() + "/traitdata.json").exists()) {
 							Map<String,String> json = Utils.readJsonFileFromPath(tr.getPath() + "/traitdata.json");
-							Map<String,String> alleleA = Utils.readJsonFileFromPath(tr.getPath() + "/a.json");
-							Map<String,String> alleleB = Utils.readJsonFileFromPath(tr.getPath() + "/b.json");
+							//Map<String,String> alleleA = Utils.readJsonFileFromPath(tr.getPath() + "/a.json");
+							//Map<String,String> alleleB = Utils.readJsonFileFromPath(tr.getPath() + "/b.json");
 							list.add(new Trait(
 									tr.getName(),
-									AlleleSerializer.serializers.get(alleleA.get("serializer")).serializeFromJson(Utils.readFileFromPath(tr.getPath() + "/a.json")),
-									AlleleSerializer.serializers.get(alleleB.get("serializer")).serializeFromJson(Utils.readFileFromPath(tr.getPath() + "/b.json")),
+									Utils.deserializeAllele(Utils.readFileFromPath(tr.getPath() + "/a.json")),
+									Utils.deserializeAllele(Utils.readFileFromPath(tr.getPath() + "/b.json")),
 									new Random(),
 									json.get("dominant").equalsIgnoreCase("a")
 								));
@@ -90,10 +93,19 @@ public class Chicken {
 					} else {
 						System.err.println("Not a trait in DNA folder: " + tr.getName());
 					}
-					Chicken chicken = new Chicken(new DNA((Trait[]) list.toArray()));
-					Map<String,String> json = Utils.readJsonFileFromPath(tr.getPath() + "/traitdata.json");
-
-					return null;
+					DNA dna = new DNA(UUID.fromString(folderFile.getName()));
+					
+					for (Trait trait : list) {
+						dna.getTraitMap().put(trait.getIdentifier(), trait);
+					}
+					
+					Chicken chicken = new Chicken(dna);
+					//Map<String,String> json = Utils.readJsonFileFromPath(tr.getPath() + "/traitdata.json");
+					String userID = folderFile.getPath().split("/")[folderFile.getPath().split("/").length - 3];
+					
+					chicken.setOwnerID(userID);
+					
+					return chicken;
 				}
 			} else {
 				throw new IllegalArgumentException("Invalid Data Structure for chicken folder: Missing or invalid DNA.");

@@ -41,18 +41,27 @@ public class Utils {
 	public static void logParentsToFile(Chicken parent1, Chicken parent2, Chicken child) {
 		String path = ClassLoader.getSystemClassLoader().getResource(".").getPath() + "user/" + child.getOwnerID() + "/chickens/" + child.retrieveChickenUUID().toString();
 		new File(path).mkdirs();
-
+		
+		String pathP1 = ClassLoader.getSystemClassLoader().getResource(".").getPath() + "user/" + parent1.getOwnerID() + "/chickens/" + parent1.retrieveChickenUUID().toString();
+		new File(pathP1).mkdirs();
+		
+		String pathP2 = ClassLoader.getSystemClassLoader().getResource(".").getPath() + "user/" + parent2.getOwnerID() + "/chickens/" + parent2.retrieveChickenUUID().toString();
+		new File(pathP2).mkdirs();
 		try {
 			new File(path + "/children.log").createNewFile();
 			new File(path + "/parents.log").createNewFile();
+			new File(pathP1 + "/children.log").createNewFile();
+			new File(pathP2 + "/children.log").createNewFile();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		writeToFile("user/" + parent1.getOwnerID() + "/chickens/" + parent1.retrieveChickenUUID().toString() + "/children.log", parent1.retrieveChickenUUID().toString());
-		writeToFile("user/" + parent2.getOwnerID() + "/chickens/" + parent2.retrieveChickenUUID().toString() + "/children.log", parent2.retrieveChickenUUID().toString());
-		writeToFile("user/" + child.getOwnerID() + "/chickens/" + child.retrieveChickenUUID().toString() + "/parents.log", child.retrieveChickenUUID().toString());
-		writeToFile("user/" + child.getOwnerID() + "/chickens/" + child.retrieveChickenUUID().toString() + "/parents.log", child.retrieveChickenUUID().toString());
+		System.out.println(Thread.currentThread().getStackTrace());
+		
+		writeToFile("user/" + parent1.getOwnerID() + "/chickens/" + parent1.retrieveChickenUUID().toString() + "/children.log", child.retrieveChickenUUID().toString());
+		//writeToFile("user/" + parent2.getOwnerID() + "/chickens/" + parent2.retrieveChickenUUID().toString() + "/children.log", child.retrieveChickenUUID().toString());
+		writeToFile("user/" + child.getOwnerID() + "/chickens/" + child.retrieveChickenUUID().toString() + "/parents.log", parent1.retrieveChickenUUID().toString());
+		writeToFile("user/" + child.getOwnerID() + "/chickens/" + child.retrieveChickenUUID().toString() + "/parents.log", parent2.retrieveChickenUUID().toString());
 		saveChickenToFile(child);
 	}
 
@@ -73,7 +82,7 @@ public class Utils {
 				map.put("dominant", tr.getValue().getDominantAllele().equals(tr.getValue().getAlleleA()) ? "a" : "b");
 				writeJson("user/" + chicken.getOwnerID() + "/chickens/" + chicken.getChickenDNA().getUUID().toString() + "/dna/" + tr.getKey() + "/traitdata.json", map);
 			}
-		} catch (IOException | NullPointerException e) {}
+		} catch (IOException e) {} catch (NullPointerException e) {}
 	}
 
 	public static Allele<?> deserializeAllele(String jsonData){

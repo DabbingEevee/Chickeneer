@@ -1,19 +1,34 @@
 package com.existingeevee.chickeneer;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.UUID;
 
 import com.existingeevee.chickeneer.data.Chicken;
 import com.existingeevee.chickeneer.discord.ChickeneerDiscordBot;
+import com.existingeevee.chickeneer.genetics.Allele;
+import com.existingeevee.chickeneer.genetics.DNA;
+import com.existingeevee.chickeneer.genetics.Trait;
+import com.existingeevee.chickeneer.genetics.serializers.ColorAlleleSerializer;
+import com.existingeevee.chickeneer.misc.Utils;
 
 public class Chickeneer {
 
 	public static List<Chicken> chickenList = new ArrayList<Chicken>();
+	
+//	public static List<DNA> dnaList = new ArrayList<DNA>();
 
 	public static void main(String[] args) {
 		ChickeneerDiscordBot.startDiscordBot();
 
-		/*File folder = new File(ClassLoader.getSystemClassLoader().getResource(".").getPath() + "user");
+/*		while (true) {
+			if (ChickeneerDiscordBot.jda != null) break;
+		}*/
+		new ColorAlleleSerializer();
+		File folder = new File(ClassLoader.getSystemClassLoader().getResource(".").getPath() + "user");
 		for (File e : folder.listFiles()) {
 			if (e.isDirectory())
 				System.out.println(e.getPath() + "/chickens");
@@ -23,7 +38,8 @@ public class Chickeneer {
 						if (!f.isDirectory()) {
 							continue;
 						} else {
-							DNA dna = new DNA(UUID.fromString(f.getName()));
+							
+							/*DNA dna = new DNA(UUID.fromString(f.getName()));
 
 							for (File t : new File(f.getPath() + "/dna").listFiles()) {
 								try {
@@ -45,7 +61,11 @@ public class Chickeneer {
 									continue;
 								}
 							}
-							//dnaList.add(dna);
+							*/
+							Chicken chicken = Chicken.fromExistingChickenFolder(f);
+							//chicken.setOwner(ChickeneerDiscordBot.jda.retrieveUserById(id));
+							
+							chickenList.add(chicken);
 						}
 					} catch (Throwable er) {
 						er.printStackTrace();
@@ -53,13 +73,19 @@ public class Chickeneer {
 					}
 				}
 		}
-		//int rng1 = new Random().nextInt(dnaList.size());
-		//int rng2 = rng1;
-		//while (rng1 == rng2) {
-			//rng2 = new Random().nextInt(dnaList.size());
-		//}
-		//DNA result = new DNA(dnaList.get(rng1), dnaList.get(rng2));
-		//Utils.logParentsToFile(new Chicken(dnaList.get(rng1)), new Chicken(dnaList.get(rng2)), new Chicken(result));
-		//System.out.println(result);*/
+		int rng1 = new Random().nextInt(chickenList.size());
+		int rng2 = rng1;
+		while (rng1 == rng2) {
+			rng2 = new Random().nextInt(chickenList.size());
+		}
+		
+		Chicken parent1 = chickenList.get(rng1);
+		Chicken parent2 = chickenList.get(rng1);
+		Chicken child   = new Chicken(new DNA(chickenList.get(rng1).getChickenDNA(), chickenList.get(rng2).getChickenDNA()));
+		
+		child.setOwnerID(new Random().nextBoolean() ? parent1.getOwnerID() : parent2.getOwnerID());
+		
+		Utils.logParentsToFile(parent1, parent2, child);
+		System.out.println(child.getChickenDNA());
 	}
 }

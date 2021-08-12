@@ -16,7 +16,7 @@ public class CommandTest extends Command {
 
 
 	public CommandTest() {
-		super("test", "Used for testing Usage: >test");
+		super("test", "Used for testing Usage: }test");
 	}
 
 	@Override

@@ -13,7 +13,7 @@ public class CommandHelp extends Command{
 
 
 	public CommandHelp() {
-		super("help", "Prints a list of helpful commands. Usage: >help");
+		super("help", "Prints a list of helpful commands. Usage: }help");
 	}
 
 	@Override
